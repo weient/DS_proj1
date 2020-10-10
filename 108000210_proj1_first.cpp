@@ -216,9 +216,6 @@ void choose_block(string sym) {
         for(int i=0;i<4;i++)
             for(int j=0;j<4;j++)
                 block[i][j]=O[i][j];
-            
-    else
-        cout<<"fail to find block!";
 }
 
 
@@ -233,7 +230,7 @@ int fall_blocks(int** block ,int ini_col,int** matrix) {
         temp_col = ini_col + j;
         if(temp_col >= col)
             break;
-       
+        
         while(i < row) {
             if(matrix[i][temp_col] == 0)
                 i++;
@@ -252,7 +249,6 @@ int fall_blocks(int** block ,int ini_col,int** matrix) {
         if(i < down_num)
             down_num = i;                   //down_num是第一次下降格數
     }
-    
     int second_down = 60;                   //second_down是第二次下降格數
     for(int j=0; j<4; j++) {                //計算平移後第二次的fall
         if(pos[j] != 60){
@@ -373,8 +369,7 @@ int main() {
         if(!valid){
             valid = fall_again(block, init_col-1, matrix);
         }
-        if(!valid) break;
-        //check_matrix(matrix);
+        check_matrix(matrix);
     }
     in_file.close();
     out_file.open("108000210_proj1.final.txt", ios::out);
