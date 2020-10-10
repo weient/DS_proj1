@@ -3,7 +3,7 @@
 #include<fstream>
 using namespace std;
 
-int row, col, ini_col, mov;
+int row, col, init_col, mov;
 string sym;
 int** matrix;
 int** block;
@@ -279,8 +279,9 @@ int fall_blocks(int** block ,int ini_col,int** matrix) {
     else return 1;
 }
 
-void fall_again(int** block, int ini_col, int** matrix){
+int fall_again(int** block, int ini_col, int** matrix){
     int temp_col, down_num = 60;
+    bool valid = true;
     for(int j=0; j<4; j++){
         int i = 0;
         int m = 3, n = 0;
@@ -305,10 +306,14 @@ void fall_again(int** block, int ini_col, int** matrix){
             down_num = i;
     }
     for(int i=0; i<4; i++)
-        for(int j=0; j<4; j++)
-            if(block[3-i][j] == 1 && down_num-1-i >= 0)
+        for(int j=0; j<4; j++){
+            if(block[3-i][j] == 1 && down_num-1-i >= 0) {
                 matrix[down_num-i-1][j+ini_col] += block[3-i][j];
+            }else if(down_num-1-i < 0) valid = false;
+        }
     
+    if(!valid) return 0;
+    else return 1;
 }
 
 void check_matrix(int** matrix) {
@@ -359,16 +364,17 @@ int main() {
         if(sym == "End") {
             break;
         }
-        in_file >> ini_col >> mov;
+        in_file >> init_col >> mov;
         
         choose_block(sym);
         
-        valid = fall_blocks(block, ini_col-1, matrix);
+        valid = fall_blocks(block, init_col-1, matrix);
         check_matrix(matrix);
         if(!valid){
-            fall_again(block, ini_col-1, matrix);
+            valid = fall_again(block, init_col-1, matrix);
         }
-        check_matrix(matrix);
+        if(!valid) break;
+        //check_matrix(matrix);
     }
     in_file.close();
     out_file.open("108000210_proj1.final.txt", ios::out);
