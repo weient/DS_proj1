@@ -220,19 +220,20 @@ void choose_block(string sym) {
 
 
 
-int fall_blocks(int** block ,int ini_col,int** matrix) {
-    int temp_col, down_num = 60;
+int fall_blocks(void) {
+    int ini_col = init_col-1;
+    int tmp_col, down_num = 60;
     int pos[4] = {60, 60, 60, 60};
     bool fall_again = false;
     for(int j=0; j<4; j++){                 //計算第一次的fall，j為column
-        int i = 0;
-        int m = 3, n = 0;
-        temp_col = ini_col + j;
-        if(temp_col >= col)
+        int i = 0, m = 3, n = 0;
+        
+        tmp_col = ini_col + j;
+        if(tmp_col >= col)
             break;
         
         while(i < row) {
-            if(matrix[i][temp_col] == 0)
+            if(matrix[i][tmp_col] == 0)
                 i++;
             else break;
         }
@@ -275,18 +276,19 @@ int fall_blocks(int** block ,int ini_col,int** matrix) {
     else return 1;
 }
 
-int fall_again(int** block, int ini_col, int** matrix){
-    int temp_col, down_num = 60;
+int fall_again(void){
+    int ini_col = init_col-1;
+    int tmp_col, down_num = 60;
     bool valid = true;
+    
     for(int j=0; j<4; j++){
-        int i = 0;
-        int m = 3, n = 0;
-        temp_col = ini_col + j;
-        if(temp_col >= col)
+        int i = 0, m = 3, n = 0;
+        tmp_col = ini_col + j;
+        if(tmp_col >= col)
             break;
        
         while(i < row) {
-            if(matrix[i][temp_col] == 0)
+            if(matrix[i][tmp_col] == 0)
                 i++;
             else break;
         }
@@ -312,7 +314,7 @@ int fall_again(int** block, int ini_col, int** matrix){
     else return 1;
 }
 
-void check_matrix(int** matrix) {
+void check_matrix(void) {
     bool delete_row;
     for(int i=0; i<row; i++) {
         delete_row = true;
@@ -330,7 +332,7 @@ void check_matrix(int** matrix) {
         
     }
 }
-int main() {
+int main(void) {
     
     in_file.open("108000210_proj1.data.txt",ios::in);
     if(!in_file) {
@@ -364,12 +366,12 @@ int main() {
         
         choose_block(sym);
         
-        valid = fall_blocks(block, init_col-1, matrix);
-        check_matrix(matrix);
+        valid = fall_blocks();
+        check_matrix();
         if(!valid){
-            valid = fall_again(block, init_col-1, matrix);
+            valid = fall_again();
         }
-        check_matrix(matrix);
+        check_matrix();
     }
     in_file.close();
     out_file.open("108000210_proj1.final.txt", ios::out);
