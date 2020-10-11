@@ -328,13 +328,13 @@ void check_matrix(void) {
                     matrix[m][n] = matrix[m-1][n];
             for(int j=0; j<col; j++)
                 matrix[0][j]=0;
-        }        
+        }
         
     }
 }
-int main(void) {
-    
-    in_file.open("108000210_proj1.data.txt",ios::in);
+int main(int argc, char *argv[]) {
+    string filename(argv[1]);
+    in_file.open(filename, ios::in);
     if(!in_file) {
             cout<< "Can't open in_file!\n";
     }
@@ -342,7 +342,7 @@ int main(void) {
     matrix = new int*[row];
     for(int i=0; i<row; i++) {
         matrix[i] = new int[col];
-    } 
+    }
 
     for(int i=0; i<row; i++)
         for(int j=0; j<col; j++)
@@ -374,14 +374,16 @@ int main(void) {
         check_matrix();
     }
     in_file.close();
-    out_file.open("108000210_proj1.final.txt", ios::out);
+    out_file.open("108000210_proj1.final", ios::out);
 
     if(!out_file) {
         cout<< "Can't open out_file!\n";
     }
     for(int i=0; i<row; i++) {
-        for(int j=0; j<col; j++)
-                out_file << matrix[i][j];
+        for(int j=0; j<col; j++){
+            if(j == 0) out_file << matrix[i][j];
+            else out_file << " " << matrix[i][j];
+        }
         out_file << endl;
     }
     out_file.close();
