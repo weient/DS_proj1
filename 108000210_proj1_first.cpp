@@ -277,7 +277,7 @@ int fall_blocks(void) {
 }
 
 int fall_again(void){
-    int ini_col = init_col-1;
+    int ini_col = init_col+mov-1;
     int tmp_col, down_num = 60;
     bool valid = true;
     
