@@ -307,6 +307,7 @@ int fall_again(void){
         for(int j=0; j<4; j++){
             if(block[3-i][j] == 1 && down_num-1-i >= 0) {
                 matrix[down_num-i-1][j+ini_col] += block[3-i][j];
+                block[3-i][j] = 0;
             }else if(down_num-1-i < 0) valid = false;
         }
     
@@ -368,10 +369,11 @@ int main(int argc, char *argv[]) {
         
         valid = fall_blocks();
         check_matrix();
-        if(!valid){
+        while(!valid){
             valid = fall_again();
+            check_matrix();
         }
-        check_matrix();
+        
     }
     in_file.close();
     out_file.open("108000210_proj1.final", ios::out);
