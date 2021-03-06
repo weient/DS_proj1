@@ -6,4 +6,4 @@
 * 一序列的各種不同方塊，以及落在哪裡（row, col）
 <br>
 一共有19種不同方塊，如下圖所示：
-![image]()
+![image](https://github.com/weient/DS_proj1/blob/c4a859b8415152c227b70bbaabcb9cf1d52018e1/image.png)
